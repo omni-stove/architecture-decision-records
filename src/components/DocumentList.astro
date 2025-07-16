@@ -1,0 +1,82 @@
+---
+import { getCollection } from "astro:content";
+
+const allDocs = await getCollection("docs");
+const filteredDocs = allDocs.filter((doc) => doc.id !== "index.mdx");
+
+// デバッグ用
+console.log(
+	"Docs:",
+	filteredDocs.map((d) => ({ id: d.id, keys: Object.keys(d) })),
+);
+---
+
+<div class="document-list">
+  <table>
+    <thead>
+      <tr>
+        <th>タイトル</th>
+        <th>説明</th>
+      </tr>
+    </thead>
+    <tbody>
+      {filteredDocs.map((doc) => (
+        <tr>
+          <td>
+            <a href={`/${doc.filePath}/`}>
+              {doc.data.title}
+            </a>
+          </td>
+          <td>{doc.data.description || '-'}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .document-list {
+    margin: 2rem 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    max-width: none;
+  }
+
+  th {
+    background-color: var(--sl-color-gray-6);
+    color: var(--sl-color-text);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.875rem 1rem;
+    border-bottom: 2px solid var(--sl-color-gray-5);
+    font-size: 0.875rem;
+  }
+
+  td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--sl-color-gray-6);
+    font-size: 0.875rem;
+    vertical-align: top;
+  }
+
+  tr:hover {
+    background-color: var(--sl-color-gray-7);
+  }
+
+  td:first-child a {
+    color: var(--sl-color-text);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  td:first-child a:hover {
+    color: var(--sl-color-accent);
+    text-decoration: underline;
+  }
+
+</style>
