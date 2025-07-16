@@ -19,3 +19,18 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# ai-rules
+.cursorrules
+.clinerules
+.ai-rules-version.json
+.github/copilot-instructions.md
+.roo/rules
+.cursor/rules
+.roomodes
+.roo/rules*
+.claude
+CLAUDE.personal.md
+
+# env
+.env
